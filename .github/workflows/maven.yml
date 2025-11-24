@@ -10,23 +10,37 @@ name: CI/CD project
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      working-directory: backend
-      run: mvn clean package
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+          cache: maven
+          # FIX 1: Point to the pom.xml in the backend folder for correct cache key calculation
+          cache-dependency-path: backend/pom.xml
+
+      - name: Build with Maven
+        working-directory: backend
+        run: mvn clean package
+
+      - name: Build & push Docker image
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: haritha037/jenkins-mini-project-backend
+          tags: v1, latest
+          registry: docker.io
+          dockerfile: backend/Dockerfile
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
