@@ -42,6 +42,6 @@ jobs:
           tags: ${{ github.sha }}, latest # Use commit SHA for versioning
           registry: docker.io
           directory: backend # Sets build context to backend folder
-          dockerfile: Dockerfile # Now relative to the directory above
+          dockerfile: backend/Dockerfile # Now relative to the directory above
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
