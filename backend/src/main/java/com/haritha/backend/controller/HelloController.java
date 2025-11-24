@@ -19,4 +19,5 @@ public class HelloController {
         String message = greetingService.getGreeting();
         return ResponseEntity.ok(new HelloResponse(message));
     }
+    // test comment
 }
