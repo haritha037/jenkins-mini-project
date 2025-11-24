@@ -20,4 +20,5 @@ public class HelloController {
         return ResponseEntity.ok(new HelloResponse(message));
     }
     // test comment
+    // test comment 2
 }
