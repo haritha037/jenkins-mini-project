@@ -39,8 +39,9 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
           image: haritha037/jenkins-mini-project-backend
-          tags: v1, latest
+          tags: ${{ github.sha }}, latest # Use commit SHA for versioning
           registry: docker.io
-          dockerfile: backend/Dockerfile
+          directory: backend # Sets build context to backend folder
+          dockerfile: Dockerfile # Now relative to the directory above
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
