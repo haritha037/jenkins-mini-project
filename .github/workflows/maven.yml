@@ -44,4 +44,4 @@ jobs:
           directory: backend # Sets build context to backend folder
           dockerfile: backend/Dockerfile # Now relative to the directory above
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }} # Make sure to give read-write permissions on dockerhub for this token
